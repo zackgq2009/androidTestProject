@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.maxleap.test.payment">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- your package -->
+    <!--<permission-->
+        <!--android:name="com.maxleap.test.payment.permission.C2D_MESSAGE"-->
+        <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="com.maxleap.test.payment.permission.C2D_MESSAGE" />-->
+
+    <!--&lt;!&ndash; App receives GCM messages. &ndash;&gt;-->
+    <!--<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />-->
+    <!--&lt;!&ndash; GCM requires a Google account. &ndash;&gt;-->
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <!--&lt;!&ndash; Keeps the processor from sleeping when a message is received. &ndash;&gt;-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:name="com.maxleap.test.payment.App"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <meta-data android:name="ml_channel" android:value="google_play"/>
+        <!--&lt;!&ndash; senderId &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="com.maxleap.push.gcm_sender_id"-->
+            <!--android:value="id:890404010829" />-->
+        <!--&lt;!&ndash;notification icon&ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="com.maxleap.push.notification_icon"-->
+            <!--android:resource="@android:drawable/ic_dialog_alert" />-->
+
+        <!--&lt;!&ndash; play services &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--android:value="@integer/google_play_services_version" />-->
+
+        <!--&lt;!&ndash; receiver &ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="com.maxleap.GcmBroadcastReceiver"-->
+            <!--android:permission="com.google.android.c2dm.permission.SEND">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+                <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
+
+                <!--<category android:name="com.maxleap.test.payment" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <meta-data
+            android:name="ml_push"
+            android:value="lpns" />
+
+        <receiver
+            android:name="com.maxleap.test.payment.activities.GetUri"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.maxleap.push.intent.RECEIVE" />
+                <action android:name="com.maxleap.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.maxleap.MLPushService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.maxleap.MLBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.maxleap.MLHeartBeatReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.maxleap.push.intent.HEARTBEAT" />
+                <action android:name="com.maxleap.push.intent.RECONNECT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.maxleap.test.payment.activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.maxleap.test.payment.activities.BuyCoinsActivity"/>
+        <activity android:name="com.maxleap.test.payment.activities.BuyItemsActivity"/>
+        <activity android:name="com.maxleap.test.payment.activities.MissionDetailActivity"/>
+        <activity android:name="com.maxleap.test.payment.activities.UseItemsActivity"/>
+        <activity android:name="com.maxleap.test.payment.activities.MissionListActivity"/>
+        <activity android:name="com.maxleap.test.payment.activities.SessionOutActivity"/>
+        <activity android:name=".activities.TimelineActivity"/>
+    </application>
+
+</manifest>
